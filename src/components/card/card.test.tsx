@@ -11,5 +11,7 @@ const cardProps: CardProps = {
 };
 test("expect to render Card component", () => {
   const comp = shallow(<Card {...cardProps} />);
+  expect.assertions(2);
   expect(comp.length).toEqual(1);
+  expect(comp).toMatchSnapshot();
 });
