@@ -2,7 +2,7 @@ import { Monster } from "../../App";
 import Card from "../card/card.component";
 import "./card-list.styles.css";
 
-type CardListProps = {
+export type CardListProps = {
   monsters: Monster[];
 };
 
