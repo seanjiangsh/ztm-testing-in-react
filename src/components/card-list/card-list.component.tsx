@@ -1,4 +1,4 @@
-import { Monster } from "../../App";
+import { Monster } from "../../redux/types";
 import Card from "../card/card.component";
 import "./card-list.styles.css";
 
