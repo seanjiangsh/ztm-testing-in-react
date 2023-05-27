@@ -9,5 +9,5 @@ export type Monster = {
 export type State = {
   request: AsyncState;
   monsters: Array<Monster>;
-  search?: string;
+  search: string;
 };

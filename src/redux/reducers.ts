@@ -12,6 +12,7 @@ import * as types from "./types";
 const initState: types.State = {
   request: { status: "pending" },
   monsters: [],
+  search: "",
 };
 const initialState = structuredClone(initState);
 
@@ -24,10 +25,10 @@ const setMonsters = (
 const setSearch = (state: types.State, action: PayloadAction<string>) => {
   state.search = action.payload;
 };
-
-const request = createAsyncThunk<Array<types.Monster>, string>(
+const requestMonster = createAsyncThunk<Array<types.Monster>, string>(
   "root/request",
   async (url: string, { getState }) => {
+    console.log("req monster");
     const response = await fetch(url);
     if (!response.ok) throw new Error("request monster data failed");
     return await response.json();
@@ -35,13 +36,13 @@ const request = createAsyncThunk<Array<types.Monster>, string>(
 );
 const extraReducers = (builder: ActionReducerMapBuilder<types.State>) => {
   builder
-    .addCase(request.pending, (state) => {
+    .addCase(requestMonster.pending, (state) => {
       state.request.status = "pending";
     })
-    .addCase(request.rejected, (state) => {
+    .addCase(requestMonster.rejected, (state) => {
       state.request.status = "rejected";
     })
-    .addCase(request.fulfilled, (state, action) => {
+    .addCase(requestMonster.fulfilled, (state, action) => {
       state.request.status = "fulfilled";
       state.monsters = action.payload;
     });
@@ -57,5 +58,6 @@ const slice = createSlice({
 });
 
 export const selectState = (state: RootState) => state.root;
+export { requestMonster };
 export const rootActions = slice.actions;
 export default slice.reducer;

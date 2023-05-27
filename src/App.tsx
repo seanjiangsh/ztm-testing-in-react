@@ -1,39 +1,31 @@
-import { useState, useEffect, ChangeEvent } from "react";
+import { useEffect, ChangeEvent } from "react";
+import { useAppDispatch, useAppSelector } from "./redux/root-hook";
+
+import { selectState, requestMonster, rootActions } from "./redux/reducers";
 
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
-
-import { getData } from "./utils/data.utils";
-import { Monster } from "./redux/types";
 import "./App.css";
 
+const { setSearch } = rootActions;
+
 const App = () => {
-  const [searchField, setSearchField] = useState("");
-  const [monsters, setMonsters] = useState<Monster[]>([]);
-  const [filteredMonsters, setFilterMonsters] = useState(monsters);
+  const dispatch = useAppDispatch();
+  const state = useAppSelector(selectState);
+  const { request, monsters, search } = state;
+  const filteredMonsters = monsters.filter((monster) =>
+    monster.name.toLocaleLowerCase().includes(search)
+  );
 
   useEffect(() => {
-    const fetchUsers = async () => {
-      const users = await getData<Monster[]>(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      setMonsters(users);
-    };
-
-    fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    const newFilteredMonsters = monsters.filter((monster) => {
-      return monster.name.toLocaleLowerCase().includes(searchField);
-    });
-
-    setFilterMonsters(newFilteredMonsters);
-  }, [monsters, searchField]);
+    if (request.status !== "pending") return;
+    const url = "https://jsonplaceholder.typicode.com/users";
+    dispatch(requestMonster(url));
+  }, [dispatch, request.status]);
 
   const onSearchChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const searchFieldString = event.target.value.toLocaleLowerCase();
-    setSearchField(searchFieldString);
+    dispatch(setSearch(searchFieldString));
   };
 
   return (
