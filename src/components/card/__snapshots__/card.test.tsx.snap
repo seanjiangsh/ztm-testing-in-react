@@ -6,7 +6,7 @@ exports[`expect to render Card component 1`] = `
 >
   <img
     alt="monster Test Monster"
-    src="https://robohash.org/testMonster?set=set2&size=180x180"
+    src="https://robohash.org/1?set=set2&size=180x180"
   />
   <h2>
     Test Monster

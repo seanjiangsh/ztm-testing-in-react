@@ -5,12 +5,12 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 
 // * react-redux
-import { store } from "./redux/root-store";
+import { setupStore } from "./redux/root-store";
 import { Provider } from "react-redux";
 
 const app = (
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={setupStore()}>
       <App />
     </Provider>
   </React.StrictMode>

@@ -1,20 +1,20 @@
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
-import { shallow } from "enzyme";
-
+import { renderWithProviders } from "./utils/utils-for-tests";
 import App from "./App";
 
-test("renders 'Monsters Rolodex' in App", () => {
-  render(<App />);
-  const linkElement = screen.getByText(/Monsters Rolodex/i);
-  expect(linkElement).toBeInTheDocument();
-});
+import * as types from "./redux/types";
 
-test("expect 'Monsters Rolodex' in App title", () => {
-  expect.assertions(2);
-  const app = shallow(<App />);
-  const title = app.find(".app-title");
-  expect(title).toHaveLength(1);
-  expect(title.text()).toEqual("Monsters Rolodex");
+test("should have 'Leanne Graham' card in App", () => {
+  const state: types.State = {
+    request: { status: "fulfilled" },
+    monsters: [{ id: 1, name: "Leanne Graham", email: "Sincere@april.biz" }],
+    search: "",
+  };
+  const preloadedState = { root: state };
+  renderWithProviders(<App />, { preloadedState });
+
+  const cardElement = screen.getByText(/Leanne Graham/i);
+  expect(cardElement).toBeInTheDocument();
 });

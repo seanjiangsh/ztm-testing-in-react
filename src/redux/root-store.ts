@@ -1,11 +1,10 @@
 import {
   configureStore,
-  ThunkAction,
-  Action,
   Middleware,
   combineReducers,
   Reducer,
   CombinedState,
+  PreloadedState,
 } from "@reduxjs/toolkit";
 import { createLogger } from "redux-logger";
 
@@ -43,17 +42,15 @@ const rootReducer = combinedReducers as Reducer<
   any
 >;
 
-export const store = configureStore({
-  reducer: rootReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().prepend(middlewares),
-});
+export const setupStore = (preloadedState?: PreloadedState<RootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware().prepend(middlewares),
+    preloadedState,
+  });
+};
 
-export type AppDispatch = typeof store.dispatch;
-export type RootState = ReturnType<typeof store.getState>;
-export type AppThunk<ReturnType = void> = ThunkAction<
-  ReturnType,
-  RootState,
-  unknown,
-  Action<string>
->;
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppStore = ReturnType<typeof setupStore>;
+export type AppDispatch = AppStore["dispatch"];

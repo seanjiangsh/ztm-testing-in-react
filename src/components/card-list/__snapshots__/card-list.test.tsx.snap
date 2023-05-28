@@ -5,21 +5,21 @@ exports[`expect to render CardList component 1`] = `
   className="card-list"
 >
   <Card
-    key="testMonster1"
+    key="1"
     monster={
       Object {
         "email": "monster1@gmail.com",
-        "id": "testMonster1",
+        "id": 1,
         "name": "Test Monster 1",
       }
     }
   />
   <Card
-    key="testMonster2"
+    key="2"
     monster={
       Object {
         "email": "monster2@gmail.com",
-        "id": "testMonster2",
+        "id": 2,
         "name": "Test Monster 2",
       }
     }

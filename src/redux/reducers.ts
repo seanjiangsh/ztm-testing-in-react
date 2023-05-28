@@ -14,7 +14,7 @@ const initState: types.State = {
   monsters: [],
   search: "",
 };
-const initialState = structuredClone(initState);
+const initialState = JSON.parse(JSON.stringify(initState));
 
 const setMonsters = (
   state: types.State,
@@ -28,7 +28,6 @@ const setSearch = (state: types.State, action: PayloadAction<string>) => {
 const requestMonster = createAsyncThunk<Array<types.Monster>, string>(
   "root/request",
   async (url: string, { getState }) => {
-    console.log("req monster");
     const response = await fetch(url);
     if (!response.ok) throw new Error("request monster data failed");
     return await response.json();
@@ -58,6 +57,6 @@ const slice = createSlice({
 });
 
 export const selectState = (state: RootState) => state.root;
-export { requestMonster };
-export const rootActions = slice.actions;
+export { initialState, requestMonster };
+export const { actions } = slice;
 export default slice.reducer;

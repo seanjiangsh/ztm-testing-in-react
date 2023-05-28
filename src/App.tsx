@@ -1,13 +1,13 @@
 import { useEffect, ChangeEvent } from "react";
 import { useAppDispatch, useAppSelector } from "./redux/root-hook";
 
-import { selectState, requestMonster, rootActions } from "./redux/reducers";
+import { selectState, requestMonster, actions } from "./redux/reducers";
 
 import CardList from "./components/card-list/card-list.component";
 import SearchBox from "./components/search-box/search-box.component";
 import "./App.css";
 
-const { setSearch } = rootActions;
+const { setSearch } = actions;
 
 const App = () => {
   const dispatch = useAppDispatch();

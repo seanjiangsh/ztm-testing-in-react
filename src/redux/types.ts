@@ -1,7 +1,7 @@
 export type AsyncState = { status: "pending" | "rejected" | "fulfilled" };
 
 export type Monster = {
-  id: string;
+  id: number;
   name: string;
   email: string;
 };
