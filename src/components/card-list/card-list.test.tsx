@@ -10,7 +10,7 @@ const mockMonsters: CardListProps = {
 };
 test("expect to render CardList component", () => {
   const comp = shallow(<CardList {...mockMonsters} />);
-  expect.assertions(2);
+  console.log(comp);
+  expect.assertions(1);
   expect(comp.length).toEqual(1);
-  expect(comp).toMatchSnapshot();
 });

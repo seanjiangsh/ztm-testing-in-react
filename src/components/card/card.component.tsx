@@ -10,7 +10,7 @@ const Card = ({ monster }: CardProps) => {
   const { id, name, email } = monster;
 
   return (
-    <div className="card-container">
+    <div className="card-container" data-testid="card-component">
       <img
         alt={`monster ${name}`}
         src={`https://robohash.org/${id}?set=set2&size=180x180`}
