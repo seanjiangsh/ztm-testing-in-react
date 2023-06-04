@@ -15,6 +15,7 @@ const SearchBox = ({
 }: SearchBoxProps) => (
   <input
     className={`search-box ${className}`}
+    data-testid="monsters-search-box-input"
     type="search"
     placeholder={placeholder}
     onChange={onChangeHandler}

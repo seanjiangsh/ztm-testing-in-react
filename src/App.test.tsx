@@ -1,4 +1,4 @@
-import { screen } from "@testing-library/react";
+import { screen, fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import { renderWithProviders } from "./utils/utils-for-tests";
@@ -20,7 +20,7 @@ describe("App tests", () => {
     expect(cardElement).toBeInTheDocument();
   });
   test("should filtered to 3 cards remaining in App", () => {
-    const state: types.State = {
+    const mockState: types.State = {
       request: { status: "fulfilled" },
       monsters: [
         {
@@ -49,10 +49,16 @@ describe("App tests", () => {
           email: "Lucio_Hettinger@annie.ca",
         },
       ],
-      search: "le",
+      search: "",
     };
-    const preloadedState = { root: state };
-    renderWithProviders(<App />, { preloadedState });
+    const preloadedState = { root: mockState };
+    const { store } = renderWithProviders(<App />, { preloadedState });
+    const searchId = "monsters-search-box-input";
+    const searchInput: HTMLInputElement = screen.getByTestId(searchId);
+    fireEvent.change(searchInput, { target: { value: "le" } });
+    const state = store.getState();
+    expect(searchInput.value).toBe("le");
+    expect(state.root.search).toBe("le");
     const cards = screen.queryAllByTestId("card-component");
     expect(cards).toHaveLength(3);
   });
