@@ -14,7 +14,7 @@ const initState: types.State = {
   monsters: [],
   search: "",
 };
-const initialState = JSON.parse(JSON.stringify(initState));
+const initialState = structuredClone(initState);
 
 const setMonsters = (
   state: types.State,

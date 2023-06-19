@@ -1,17 +1,23 @@
-import { Monster } from "../../redux/types";
+import { useAppSelector } from "../../redux/root-hook";
+import { selectState } from "../../redux/reducers";
+
 import Card from "../card/card.component";
 import "./card-list.styles.css";
 
-export type CardListProps = {
-  monsters: Monster[];
-};
+const CardList = () => {
+  const state = useAppSelector(selectState);
+  const { monsters, search } = state;
+  const filteredMonsters = monsters.filter((monster) =>
+    monster.name.toLocaleLowerCase().includes(search)
+  );
 
-const CardList = ({ monsters }: CardListProps) => (
-  <div className="card-list">
-    {monsters.map((monster) => {
-      return <Card key={monster.id} monster={monster} />;
-    })}
-  </div>
-);
+  return (
+    <div className="card-list">
+      {filteredMonsters.map((monster) => {
+        return <Card key={monster.id} monster={monster} />;
+      })}
+    </div>
+  );
+};
 
 export default CardList;
