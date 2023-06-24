@@ -9,12 +9,11 @@ import { RootState } from "./root-store";
 
 import * as types from "./types";
 
-const initState: types.State = {
+const initialState: types.State = {
   request: { status: "pending" },
   monsters: [],
   search: "",
 };
-const initialState = structuredClone(initState);
 
 const setMonsters = (
   state: types.State,
