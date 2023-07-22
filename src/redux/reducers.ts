@@ -15,12 +15,6 @@ const initialState: types.State = {
   search: "",
 };
 
-const setMonsters = (
-  state: types.State,
-  action: PayloadAction<types.Monster[]>
-) => {
-  state.monsters = action.payload;
-};
 const setSearch = (state: types.State, action: PayloadAction<string>) => {
   state.search = action.payload;
 };
@@ -46,7 +40,7 @@ const extraReducers = (builder: ActionReducerMapBuilder<types.State>) => {
     });
 };
 
-const reducers = { setMonsters, setSearch };
+const reducers = { setSearch };
 
 const slice = createSlice({
   name: "root",
